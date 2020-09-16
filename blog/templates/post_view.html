@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container" style="margin-top:60px">
+    <div class="row">
+
+        <!-- Blog Post -->
+        <div class="card m-auto">
+            {% if blog_post.image %}
+            <img class="card-img-top" src="{{blog_post.image.url}}">
+            {% endif %}
+
+            <div class="card-body mt-2 mb-2">
+                <h2 class="card-title">{{blog_post.title}}</h2>
+                <h5>{{blog_post.summary}}</h5>
+                <p class="card-text">{{blog_post.body|safe}}</p>
+
+                {% if blog_post.author == request.user %}
+                    <a href="{% url 'blog:edit' blog_post.slug %}" class="btn btn-primary">Edit post</a>
+                    <a href="{% url 'blog:delete' blog_post.slug %}" class="btn btn-danger">Delete Post</a>
+                {% endif %}
+            </div>
+            <div class="card-footer text-muted">
+                Updated on {{blog_post.date_updated}} by {{blog_post.author.username}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- comment section -->
+    {% if comments.count != 0 %}
+        {% for comment in comments %}
+        <div class="container">
+            <div class="row">
+                <div class="comment m-auto">
+                    <div class="card-body mt-2 mb-2">
+                        <p class="card-text">{{comment.body|safe}}</p>
+
+                        {% if comment.author == request.user %}
+                            <a href="{% url 'blog:edit-comment' comment.slug %}" class="btn btn-info">Edit Comment</a>
+                            <a href="{% url 'blog:delete-comment' comment.slug %}" class="btn btn-warning">Delete Comment</a>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-muted">
+                        Updated on {{comment.date_updated}} by {{comment.author.username}}
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <br>
+        <p style="text-align: center;"><strong>No comments! Be the first one to write a comment (using the section below).</strong></p>
+    {% endif %}
+</div>
+
+<!-- write a comment -->
+<div class="container">
+        <center>
+                <form class="create-form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.media}}
+                    {{form|crispy}}
+
+                    <!-- Submit btn -->
+                    <button class="submit-button btn btn-lg btn-primary btn-block" type="submit">COMMENT</button>
+                </form>
+        </center>
+</div>
+
+{% endblock content %}

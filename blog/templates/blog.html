@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- main content -->
+<div class="container mt-5">
+    <div class="row">
+
+        <!-- blog feed -->
+        <div class="left-column col-lg-7 offset-lg-1">
+
+            <!-- Top bar -->
+            <div class="mb-3 mt-4" >
+                <div class="card m-auto d-flex flex-column p-3">
+                    <center>
+                    <h2 style="font-family: Impact, Charcoal, sans-serif;">Blog</h2><br>
+                    <p class="lead"><strong>Welcome to the Programming-Query Blog! In here, registered users
+                    are able to write and publish their posts regarding the programming field,
+                    and browse posts that other users published to gage their interest as well. Enjoy! </strong></p>
+                    </center>
+                </div>
+            </div>
+
+            <!-- Blog posts-->
+            {% if blog_posts.all.count != 0 %}
+                {% for post in blog_posts.all %}
+                <div class="blog-post-container">
+                    {% include 'post_details.html' with blog_post=post %}
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="blog-post-container">
+                <p>No posts available!</p>
+            </div>
+            {% endif %}
+    </div>
+
+        <!-- 'create post' and 'my posts' columns  -->
+        <div class="right-column col-lg-3 d-lg-flex d-none flex-column" style="margin-top:50px">
+            {% if request.user.is_authenticated %}
+                <div class="card create-post-bar d-flex flex-column p-3">
+                    <center>
+                    <p class="lead">Click the link below in order to create a new post</p>
+                        <a  href="{% url 'blog:create' %}" class="btn btn-primary my-2">Create post</a>
+                    </center>
+                </div>
+                <div class="card create-post-bar d-flex flex-column p-3">
+                    <center>
+                    <p class="lead">Wanna watch, update or delete any of the
+                    posts that you have already written? Click below!</p>
+                        <a  href="{% url 'blog:my_posts' %}" class="btn btn-primary my-2">View my posts</a>
+                    </center>
+                </div>
+            {% else %}
+                <div class="card create-post-bar d-flex flex-column p-3">
+                <p class="lead">Register or log-in in order to create a new post</p>
+                <center>
+                        <a href="/register" class="btn btn-primary my-2">Register</a>
+                        <a href="/log_in" class="btn btn-secondary my-2">Log In</a>
+                </center>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

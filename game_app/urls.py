@@ -1,0 +1,39 @@
+"""game_app URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path, include
+from accounts.views import (log_in_view, register_view, logout_view, success_registration_view)
+from blog.views import (blog_page_view, about_view, home_view, refer_to_home_domain)
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from game_app import settings
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', refer_to_home_domain),
+    path('blog/', include('blog.urls', 'blog')),
+    path('home/', home_view, name='home'),
+    path('about/', about_view),
+    path('log_in/', log_in_view, name='login'),
+    path('register/', register_view, name='register'),
+    path('logout/', logout_view, name="logout"),
+    path('blog/', blog_page_view, name="blog_page"),
+    path('success/', success_registration_view, name="success_registration"),
+]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)

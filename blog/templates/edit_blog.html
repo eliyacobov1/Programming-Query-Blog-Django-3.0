@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container" style="margin-top:50px">
+    <div class="row">
+        <div class="col-lg-7 offset-lg-1">
+
+            <form class="create-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.media}}
+                {{form|crispy}}
+
+                <!-- Submit btn -->
+                <button class="submit-button btn btn-lg btn-primary btn-block" type="submit" onclick="return confirm('Are you sure?')">POST</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

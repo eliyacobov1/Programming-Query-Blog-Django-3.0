@@ -1,0 +1,25 @@
+body{
+    background-color: black;
+}
+
+.image-cropper {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.game-pic {
+    display: inline;
+    margin: -32 auto;
+    margin-left: 0%; //centers the image
+    height: 100%;
+    width: auto;
+}
+
+.link {
+    color:grey;
+    text-decoration: none;
+    background-color: none;
+}

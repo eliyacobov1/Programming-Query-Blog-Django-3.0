@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid h-50 d-inline-block" style="background-image:url({% static 'pic2.jpg' %}); margin-top:50px">
+        <center>
+            <h1 style="color:#E7EAE0; margin-top:110px">Programming-Query </h1>
+            <h6 style="color:#E7EAE0; font-family:calibri">Project by Eli Yacobov</h6>
+            {% if not request.user.is_authenticated %}
+                <p>
+                    <a href="/register" class="btn btn-primary my-2">Register</a>
+                    <a href="/log_in" class="btn btn-secondary my-2">Log In</a>
+                </p>
+            {% endif %}
+        </center>
+    </div>
+
+    <br><br><br>
+
+    <div class="container mb-3 col-11">
+        <div class="row">
+
+            <!-- Blog image and link -->
+            <div class="col">
+                <div class="text-center">
+                <a href="/blog" style=" margin-top: 50px;">
+                    <img class="rounded-circle" src="{% static 'blog_pic.png' %}" width="250" height="200">
+                </a>
+                    <div class="my-1">
+                        <h4><b>Blog</b></h4><p>Take part in our online programming blog.<br>
+                        Read interesting materials and share your<br> programming knowledge
+                        with the rest of <br> the community. </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About me and miscellaneous -->
+            <div class="col text-right">
+                <div class="text-center">
+                    <a href="/blog" style=" margin-top: 50px;">
+                        <img class="rounded-circle" src="{% static 'about.jpg' %}" width="250" height="200">
+                    </a>
+                    <div class="my-1">
+                        <h4><b>Miscellaneous</b></h4><p>Read about me, the creator of this
+                    project.<br> Also, extra information about future plans<br> and projects and
+                    some useful links for the<br> hottest websites. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
